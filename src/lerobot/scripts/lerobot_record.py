@@ -379,6 +379,10 @@ def record(cfg: RecordConfig) -> LeRobotDataset:
     robot = make_robot_from_config(cfg.robot)
     teleop = make_teleoperator_from_config(cfg.teleop) if cfg.teleop is not None else None
 
+    # Special handling for kinesthetic teaching teleoperator
+    if teleop is not None and hasattr(teleop, 'set_robot'):
+        teleop.set_robot(robot)
+
     teleop_action_processor, robot_action_processor, robot_observation_processor = make_default_processors()
 
     dataset_features = combine_feature_dicts(
