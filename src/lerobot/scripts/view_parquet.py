@@ -19,7 +19,7 @@ import pandas as pd
 import pyarrow.parquet as pq
 
 # 硬编码文件路径
-PARQUET_FILE = "/root/.cache/huggingface/lerobot/april5129/dofbot_demo/data/chunk-000/file-000.parquet"
+PARQUET_FILE = "/root/.cache/huggingface/lerobot/april5129/dofbot_demo1/data/chunk-000/file-000.parquet"
 
 
 def analyze_parquet_file(file_path):
