@@ -27,12 +27,12 @@ from functools import cached_property
 from typing import Any
 
 from lerobot.cameras.utils import make_cameras_from_configs
+from lerobot.motors.dofbot import DofbotMotorsBus
 from lerobot.utils.errors import DeviceAlreadyConnectedError, DeviceNotConnectedError
 
 from ..robot import Robot
 from ..utils import ensure_safe_goal_position
 from .config_dofbot_se import DofbotSEConfig
-from .dofbot_serial import DofbotSerialDevice
 
 logger = logging.getLogger(__name__)
 
@@ -95,8 +95,8 @@ class DofbotSE(Robot):
         super().__init__(config)
         self.config = config
         
-        # Initialize serial device
-        self.device = DofbotSerialDevice(
+        # Initialize motor bus
+        self.device = DofbotMotorsBus(
             port=config.port,
             baudrate=config.baudrate,
             timeout=config.timeout,

@@ -14,16 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Dofbot SE robotic arm implementation for LeRobot."""
-
-from lerobot.motors.dofbot import DofbotMotorsBus
-
-from .config_dofbot_se import DofbotSEConfig
-from .dofbot_se import DofbotSE
-
-__all__ = [
-    "DofbotSE",
-    "DofbotSEConfig",
-    "DofbotMotorsBus",  # Re-export for convenience
-]
+from .dofbot import DofbotMotorsBus
+from .tables import *
 
