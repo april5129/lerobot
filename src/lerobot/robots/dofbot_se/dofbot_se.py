@@ -206,7 +206,7 @@ class DofbotSE(Robot):
         
         # Move to home position (skip if in read-only mode)
         if not self._read_only_mode:
-            home_angles = [90.0, 90.0, 90.0, 90.0, 90.0, 180.0]
+            home_angles = [90.0, 135.0, 0.0, 1.0, 89.0, 3.0]
             try:
                 self.device.write_all_servos(home_angles, time_ms=2000)
                 time.sleep(2.0)  # Wait for movement to complete
