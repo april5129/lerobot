@@ -476,18 +476,7 @@ def record(cfg: RecordConfig) -> LeRobotDataset:
                 (recorded_episodes < cfg.dataset.num_episodes - 1) or events["rerecord_episode"]
             ):
                 log_say("Reset the environment", cfg.play_sounds)
-                record_loop(
-                    robot=robot,
-                    events=events,
-                    fps=cfg.dataset.fps,
-                    teleop_action_processor=teleop_action_processor,
-                    robot_action_processor=robot_action_processor,
-                    robot_observation_processor=robot_observation_processor,
-                    teleop=teleop,
-                    control_time_s=cfg.dataset.reset_time_s,
-                    single_task=cfg.dataset.single_task,
-                    display_data=cfg.display_data,
-                )
+                robot.go_home()
 
             if events["rerecord_episode"]:
                 log_say("Re-record episode", cfg.play_sounds)

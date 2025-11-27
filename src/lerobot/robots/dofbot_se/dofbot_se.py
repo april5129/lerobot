@@ -206,7 +206,7 @@ class DofbotSE(Robot):
         
         # Move to home position (skip if in read-only mode)
         if not self._read_only_mode:
-            home_angles = [90.0, 90.0, 90.0, 90.0, 90.0, 180.0]
+            home_angles = [90.0, 135.0, 0.0, 1.0, 89.0, 3.0]
             try:
                 self.device.write_all_servos(home_angles, time_ms=2000)
                 time.sleep(2.0)  # Wait for movement to complete
@@ -230,6 +230,23 @@ class DofbotSE(Robot):
             logger.info(f"{self} set to read-only mode (external control)")
         else:
             logger.info(f"{self} read-only mode disabled")
+
+    def go_home(self):
+        """Moves the robot to its predefined home position."""
+        if not self.is_connected:
+            raise DeviceNotConnectedError(f"{self} is not connected")
+
+        if not self._read_only_mode:
+            home_angles = [90.0, 135.0, 0.0, 1.0, 89.0, 3.0]
+            try:
+                logger.info("Moving to home position...")
+                self.device.write_all_servos(home_angles, time_ms=2000)
+                time.sleep(2)  # Wait for the movement to complete
+                logger.info("Moved to home position")
+            except Exception as e:
+                logger.error(f"Failed to move to home position: {e}")
+        else:
+            logger.warning("Cannot move to home position in read-only mode.")
 
     def get_observation(self) -> dict[str, Any]:
         """Get current robot state observation.

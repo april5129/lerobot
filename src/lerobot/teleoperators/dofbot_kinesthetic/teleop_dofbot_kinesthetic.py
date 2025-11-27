@@ -137,11 +137,11 @@ class DofbotKinesthetic(Teleoperator):
         if not self.robot.is_connected:
             raise RuntimeError("Robot must be connected before teleoperator")
         
-        # Optionally disable torque to allow manual movement
+        # For kinesthetic teaching, disable torque and set to read-only
         if self.config.disable_torque:
-            logger.info("Disabling robot torque for kinesthetic teaching...")
-            self.robot.device.set_torque(False)
-            logger.info("Kinesthetic teaching mode enabled - you can now manually move the robot")
+            # Per user request, read-only mode is disabled to allow robot movement.
+            self.robot.set_read_only_mode(False)
+            logger.info("Kinesthetic teleop: read-only mode DEACTIVATED, torque ENABLED.")
         else:
             logger.info("Kinesthetic recording mode active (read-only)")
             logger.info("Use the physical gamepad controller to control the robot")

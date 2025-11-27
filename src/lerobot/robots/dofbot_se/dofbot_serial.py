@@ -264,15 +264,13 @@ class DofbotSerialDevice:
         cmd.append(checksum)
         
         try:
-            # Send command twice for reliability (as in original implementation)
+            # Send command and receive data
             self._send_command(cmd)
-            sleep(0.001)
             self._receive_data()
-            
+            # Send command and receive data again to ensure correctness
             self._send_command(cmd)
-            sleep(0.001)
             self._receive_data()
-            
+
             # Check if response is for the correct servo
             if self.response_id == (self.CMD_SERVO_READ + servo_id):
                 raw_pos = self.servo_position_h * 256 + self.servo_position_l
